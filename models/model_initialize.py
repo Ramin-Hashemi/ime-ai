@@ -1,76 +1,43 @@
-############################
-# File imeModel_initialize #
-############################
+#########################
+# File model_initialize #
+#########################
 
 
-from fabric import Connection
-from os import environ
-import secret_user
+import subprocess
+import sys
 
 
-def create_conn():
-    # Switch the two lines if you connect via PEM Key instead of password.
-    params = {
-        #'key_filename': environ['SSH_KEY_PATH']
-        'password': environ['REMOTE_PASSWORD']
-    }
-    conn = Connection(
-        host=environ['REMOTE_HOST'],
-        user=environ['REMOTE_USER'],
-        connect_kwargs=params,
-    )
-    return conn
+def create_base_model():
+    base_model()
+    ime_model()
 
 
-######################
-# Internal Functions #
-######################
-
-def _base_model(conn):
-    conn.sudo('snap install ollama')
-    # conn.sudo('pip install ollama')
-    conn.sudo('pip install ollama-haystack')
-    conn.sudo('ollama pull llama3.2')
-    conn.sudo('ollama create iME -f ~/ime-ai/Modelfile')
-
-
-def base_model(**kwargs):
-    _base_model(create_conn())
-
-
-def main(tasks):
-    if len(tasks) <= 1:
-        print('No task name found')
-        return
-    i = 1
-    while i < len(tasks):
-        try:
-            fn = getattr(sys.modules[__name__], tasks[i])
-        except AttributeError:
-            print(f'Cannot find task {tasks[i]}. Quit.')
-            return
-        params = {}
-        j = i + 1
-        while j < len(tasks) and '=' in tasks[j]:
-            k, v = tasks[j].split('=')
-            params[k] = v
-            j += 1
-        i = j
-        print(f'Function is {fn}')
-        print(f'args are {params}')
-        fn(**params)
-
-
-if __name__ == '__main__':
-    '''
-    Run it with
-    $ python main <task1> <key1-task1>=<value1-task1> <key2-task1>=<value2-task2> <task2> <key1-task2>=<value1-task2>
-    E.g.
-    $ python main create_vm
+def base_model():
+    # Update package lists
+    subprocess.run(["sudo", "apt-get", "update", "-y"])
     
-    Or
-    $ python main pull_repo branch=develop
-    '''
-    import sys
-    tasks = sys.argv
-    main(tasks)
+    # Install snap package manager
+    subprocess.run(["sudo", "snap", "install", "ollama"])
+    
+    # Install Python packages using pip
+    subprocess.run(["sudo", "pip", "install", "ollama"])
+    subprocess.run(["sudo", "pip", "install", "ollama-haystack"])
+    
+    # Pull the llama3.2 model
+    subprocess.run(["sudo", "ollama", "pull", "llama3.2"])
+
+
+def ime_model():
+    # Create the iME model using ollama
+    subprocess.run(["sudo", "ollama", "create", "iME", "-f", "/home/one-user/ime-ai/Modelfile"])
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        func_name = sys.argv[1]
+        if func_name == "make_server_ready":
+            create_base_model()
+        else:
+            print(f"No function named {func_name} found.")
+    else:
+        print("Please provide a function name to run.")
