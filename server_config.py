@@ -16,7 +16,7 @@ def make_server_ready():
     # secure_server()
     # install_software_tools()
     # clone_repo()
-    create_virtual_env()
+    # create_virtual_env()
     configure_gunicorn()
     configure_supervisor()
     configure_nginx()

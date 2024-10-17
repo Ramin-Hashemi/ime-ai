@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Activate the virtual environment
-source .venv/bin/activate
+source /home/webapps/ime-ai/.venv/bin/activate
 
 # Run the Python script
 python server_config.py "$1"
