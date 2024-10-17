@@ -190,7 +190,7 @@ exec gunicorn main:app \
     # Activate the virtual environment and,
     # Make the gunicorn_start script executable.
     activate_script = os.path.join('.venv', 'bin', 'activate')
-    subprocess.run(f"source {activate_script} && sudo chmod u+x gunicorn_start", shell=True, executable='/bin/bash')
+    subprocess.run(f"source {activate_script} && sudo chmod +x /home/one-user/ime-ai/gunicorn_start", shell=True, executable='/bin/bash')
 
     # Create a run folder in your project directory for the Unix socket file
     subprocess.run(["sudo", "mkdir", "-p", "run"])
