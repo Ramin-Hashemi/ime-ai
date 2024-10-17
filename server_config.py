@@ -19,7 +19,7 @@ def make_server_ready():
     create_virtual_env()
     configure_gunicorn()
     configure_supervisor()
-    configure_nginx()
+    # configure_nginx()
     # ssl_certificate_certbot()
 
 
