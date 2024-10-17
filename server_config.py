@@ -5,6 +5,7 @@
 
 import subprocess
 import secret
+import sys
 import os
 
 
@@ -18,7 +19,7 @@ def make_server_ready():
     create_virtual_env()
     configure_gunicorn()
     configure_supervisor()
-    # configure_nginx()
+    configure_nginx()
     # ssl_certificate_certbot()
 
 
@@ -28,48 +29,48 @@ def install_packages():
     subprocess.run(["sudo", "apt-get", "upgrade", "-y"])
 
     # Projects required packages
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "unattended-upgrades"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "build-essential"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "checkinstall"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "coreutils"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "libreadline-gplv2-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "libncurses-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "libncursesw5-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "libssl-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "libsqlite3-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "tk-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "libgdbm-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "libpq-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "libc6-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "libbz2-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "zlib1g-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "openssl"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "libffi-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "software-properties-common"])
-    # subprocess.run(["sudo", "systemctl", "enable", "--now", "snapd.socket"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "uuid-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "lzma-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "wget"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "tree"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "curl"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "vim"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "ca-certificates"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "lsb-release"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "gnupg"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "python3-pip"])
-    # subprocess.run(["sudo", "pip", "install", "--upgrade", "pip"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "python3-dev"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "python3-setuptools"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "git"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "postgresql"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "unattended-upgrades"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "build-essential"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "checkinstall"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "coreutils"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "libreadline-gplv2-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "libncurses-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "libncursesw5-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "libssl-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "libsqlite3-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "tk-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "libgdbm-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "libpq-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "libc6-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "libbz2-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "zlib1g-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "openssl"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "libffi-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "software-properties-common"])
+    subprocess.run(["sudo", "systemctl", "enable", "--now", "snapd.socket"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "uuid-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "lzma-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "wget"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "tree"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "curl"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "vim"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "ca-certificates"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "lsb-release"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "gnupg"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "python3-pip"])
+    subprocess.run(["sudo", "pip", "install", "--upgrade", "pip"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "python3-dev"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "python3-setuptools"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "git"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "postgresql"])
 
     # Not Included by Default:
-    # subprocess.run(["sudo", "pip", "install", "pexpect"])
-    # subprocess.run(["sudo", "pip", "install", "python-dotenv"])
-    # subprocess.run(["sudo", "apt-get", "install", "-y", "snapd"])
-    # subprocess.run(["sudo", "systemctl", "enable", "--now", "snapd.socket"])
-    # subprocess.run(["sudo", "snap", "install", "core"])
-    # subprocess.run(["sudo", "snap", "refresh", "core"])
+    subprocess.run(["sudo", "pip", "install", "pexpect"])
+    subprocess.run(["sudo", "pip", "install", "python-dotenv"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "snapd"])
+    subprocess.run(["sudo", "systemctl", "enable", "--now", "snapd.socket"])
+    subprocess.run(["sudo", "snap", "install", "core"])
+    subprocess.run(["sudo", "snap", "refresh", "core"])
 
 
 def unattended_upgrades():
@@ -292,7 +293,10 @@ def ssl_certificate_certbot():
 
 
 if __name__ == "__main__":
-    import sys
+    if len(sys.argv) < 2:
+        print("Please provide a function name to run.")
+        sys.exit(1)
+    
     function_name = sys.argv[1]
     if function_name == "unattended_upgrades":
         unattended_upgrades()
