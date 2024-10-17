@@ -298,7 +298,7 @@ if __name__ == "__main__":
         sys.exit(1)
     
     function_name = sys.argv[1]
-    if function_name == "unattended_upgrades":
-        unattended_upgrades()
+    if function_name == "make_server_ready":
+        make_server_ready()
     else:
         print(f"Function {function_name} not found.")
